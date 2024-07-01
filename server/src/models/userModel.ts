@@ -4,19 +4,19 @@ interface IUser extends Document {
   id: string | undefined | null;
   organisation: string | undefined | null;
   userName: string | undefined | null;
-  phoneNumber: string | undefined | null;
-  dateJoined: string | undefined | null;
-  status: string | undefined | null;
-  bank: string | undefined | null;
-  accountBalance: string | undefined | null;
-  educationLevel: string | undefined | null;
-  employmentStatus: string | undefined | null;
-  employementSector: string | undefined | null;
-  officeEmail: string | undefined | null;
-  guarantor: string | undefined | null;
-  guarantorPhoneNo: string | undefined | null;
-  guarantorRelationship: string | undefined | null;
-  guarantorEmail: string | undefined | null;
+  phoneNumber?: string | undefined | null;
+  dateJoined?: string | undefined | null;
+  status?: "active" | "inActive";
+  bank?: string | undefined | null;
+  accountBalance?: string | undefined | null;
+  educationLevel?: string | undefined | null;
+  employmentStatus?: string | undefined | null;
+  employementSector?: string | undefined | null;
+  officeEmail?: string | undefined | null;
+  guarantor?: string | undefined | null;
+  guarantorPhoneNo?: string | undefined | null;
+  guarantorRelationship?: string | undefined | null;
+  guarantorEmail?: string | undefined | null;
 }
 
 const userSchema = new Schema<IUser>({
@@ -42,6 +42,7 @@ const userSchema = new Schema<IUser>({
   },
   status: {
     type: String,
+    enum: ["active", "inActive"],
     required: [false],
   },
   bank: {

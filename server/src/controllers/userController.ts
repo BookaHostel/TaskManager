@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { v4 as uuidv4 } from "uuid";
 
 import User from "../models/userModel";
 
@@ -9,31 +10,30 @@ export const listAllUsers = async (req: Request, res: Response) => {
     const users = await User.find();
 
     res.json(users);
-  } catch (error) {
+  } catch (error: any) {
     console.error("request failed", error);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Server Error" });
+      .json({ message: error?.message });
   }
 };
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { title, description, dueDate } = req.body;
+    const userId = uuidv4();
 
     const newUser = new User({
-      title,
-      description,
-      dueDate,
+      id: userId,
+      ...req.body,
     });
 
     const createdUser = await newUser.save();
 
     res.status(HttpStatusCodes.CREATED).json(createdUser);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Error creating user" });
+      .json({ message: error?.message });
   }
 };
