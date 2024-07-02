@@ -1,12 +1,12 @@
 import mongoose, { Date, Document, Schema, model } from "mongoose";
 
-interface IUser extends Document {
+export interface IUser extends Document {
   id: string | undefined | null;
   organisation: string | undefined | null;
   userName: string | undefined | null;
   phoneNumber?: string | undefined | null;
   dateJoined?: string | undefined | null;
-  status?: "active" | "inActive";
+  active?: boolean;
   bank?: string | undefined | null;
   accountBalance?: string | undefined | null;
   educationLevel?: string | undefined | null;
@@ -40,9 +40,8 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: [false],
   },
-  status: {
-    type: String,
-    enum: ["active", "inActive"],
+  active: {
+    type: Boolean,
     required: [false],
   },
   bank: {
